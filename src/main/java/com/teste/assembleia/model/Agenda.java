@@ -6,23 +6,15 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "agendas")
+@Table
 public class Agenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "agenda_id")
     private Long id;
 
-    @Column(name = "name")
-    @NotNull(message = "is required")
+    @NotNull(message = "Name is required")
+    @Column(nullable = false)
     private String name;
-
-//    @Column(name = "open")
-//    @NotNull(message = "is required")
-//    private Boolean open;
-
-//    @Column(name = "remaining_time")
-//    @NotNull(message = "is required")
-//    private Integer remainingTime;
 }
