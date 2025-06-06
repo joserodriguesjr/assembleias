@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/agenda")
+@RequestMapping("/agendas")
 @AllArgsConstructor
 public class AgendaController {
 
