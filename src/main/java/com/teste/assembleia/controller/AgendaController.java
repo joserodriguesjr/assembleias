@@ -57,7 +57,7 @@ public class AgendaController {
     @PostMapping("{id}/voting-session")
     public ResponseEntity<VotingSessionResponseDTO> openVotingSession(
             @PathVariable Long id,
-            @RequestBody @Valid CreateVotingSessionDTO dto) {
+            @RequestBody(required = false) CreateVotingSessionDTO dto) {
 
         VotingSession session = votingSessionService.create(id, dto);
 

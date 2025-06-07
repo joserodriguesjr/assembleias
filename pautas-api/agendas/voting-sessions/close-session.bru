@@ -1,11 +1,11 @@
 meta {
   name: close-session
   type: http
-  seq: 2
+  seq: 3
 }
 
 patch {
-  url: {{base_url}}/{{resource}}/1/{{subResource}}/1
+  url: {{base_url}}/{{resource}}/1/{{subResource}}/1/close
   body: none
   auth: inherit
 }
