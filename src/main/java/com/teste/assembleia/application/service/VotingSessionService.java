@@ -3,7 +3,7 @@ package com.teste.assembleia.application.service;
 import com.teste.assembleia.application.dto.CreateVotingSessionDTO;
 import com.teste.assembleia.application.dto.VotingSessionResponseDTO;
 import com.teste.assembleia.domain.exception.BusinessException;
-import com.teste.assembleia.domain.exception.NotFoundException;
+import com.teste.assembleia.domain.exception.ResourceNotFoundException;
 import com.teste.assembleia.domain.entity.Agenda;
 import com.teste.assembleia.domain.valueObject.VoteChoice;
 import com.teste.assembleia.domain.entity.VotingSession;
@@ -24,13 +24,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class VotingSessionService {
 
-    private final AgendaRepository agendaRepository;
+    private final AgendaService agendaService;
     private final VotingSessionRepository votingSessionRepository;
     private final VoteRepository voteRepository;
 
     public VotingSession create(Long agendaId, CreateVotingSessionDTO dto) {
-        Agenda agenda = agendaRepository.findById(agendaId)
-                .orElseThrow(() -> new NotFoundException("Pauta não encontrada"));
+        Agenda agenda = agendaService.findById(agendaId);
 
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime startTime = now;
@@ -70,7 +69,7 @@ public class VotingSessionService {
     }
 
     public VotingSession close(Long id) {
-        VotingSession votingSession = votingSessionRepository.findById(id).orElseThrow(() -> new NotFoundException("Sessão não encontrada"));
+        VotingSession votingSession = votingSessionRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Sessão não encontrada"));
 //        todo: validar
         votingSession.setEndTime(LocalDateTime.now());
         votingSessionRepository.save(votingSession);

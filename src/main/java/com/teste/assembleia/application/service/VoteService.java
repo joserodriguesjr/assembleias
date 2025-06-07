@@ -1,7 +1,7 @@
 package com.teste.assembleia.application.service;
 
 import com.teste.assembleia.application.dto.CreateVoteRequest;
-import com.teste.assembleia.domain.exception.NotFoundException;
+import com.teste.assembleia.domain.exception.ResourceNotFoundException;
 import com.teste.assembleia.domain.entity.Vote;
 import com.teste.assembleia.domain.entity.VotingSession;
 import com.teste.assembleia.domain.repository.VoteRepository;
@@ -20,7 +20,7 @@ public class VoteService {
 
     public Vote newVote(Long sessionId, CreateVoteRequest createVoteRequest) {
         VotingSession session = votingSessionRepository.findById(sessionId)
-                .orElseThrow(() -> new NotFoundException("Sessão não encontrada"));
+                .orElseThrow(() -> new ResourceNotFoundException("Sessão não encontrada"));
 
         LocalDateTime now = LocalDateTime.now();
 

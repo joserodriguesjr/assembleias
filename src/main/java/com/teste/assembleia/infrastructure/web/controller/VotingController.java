@@ -1,4 +1,4 @@
-package com.teste.assembleia.infrastructure.controller;
+package com.teste.assembleia.infrastructure.web.controller;
 
 import com.teste.assembleia.application.dto.CreateVoteRequest;
 import com.teste.assembleia.application.dto.CreateVotingSessionDTO;
