@@ -17,7 +17,7 @@ public class AgendaService {
     }
 
     public Agenda findById(Long agendaId) {
-        return agendaRepository.findById(agendaId).orElseThrow(() -> new ResourceNotFoundException("Agenda não encontrada com ID: " + agendaId));
+        return agendaRepository.findById(agendaId).orElseThrow(() -> new ResourceNotFoundException("Pauta não encontrada com ID: " + agendaId));
     }
 
 }

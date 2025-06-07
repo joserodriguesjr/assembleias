@@ -21,6 +21,7 @@ public class AgendaController {
     }
 
     @GetMapping("/{agendaId}")
+    @ResponseStatus(HttpStatus.OK)
     public Agenda getAgendaById(@PathVariable Long agendaId) {
         return agendaService.findById(agendaId);
     }

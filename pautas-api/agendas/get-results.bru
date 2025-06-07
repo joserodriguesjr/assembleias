@@ -1,0 +1,11 @@
+meta {
+  name: get-results
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/{{resource}}/1/results
+  body: none
+  auth: inherit
+}

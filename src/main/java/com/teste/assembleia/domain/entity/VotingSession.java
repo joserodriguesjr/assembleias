@@ -25,4 +25,13 @@ public class VotingSession {
     @Column(name = "end_time", nullable = false)
     private LocalDateTime endTime;
 
+    @Column(name = "yes_votes", nullable = false)
+    private Long yesVotes = 0L;
+
+    @Column(name = "no_votes", nullable = false)
+    private Long noVotes = 0L;
+
+    @Column(name = "processed", nullable = false)
+    private Boolean processed = false;
+
 }
