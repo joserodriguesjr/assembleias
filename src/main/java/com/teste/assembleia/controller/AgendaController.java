@@ -75,22 +75,22 @@ public class AgendaController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("{id}/voting-session/{votingSessionId}")
+    @GetMapping("{id}/voting-session/{sessionId}")
     public ResponseEntity<VotingSessionResponseDTO> getVotingSessionById(@PathVariable Long id,
-                                                                         @PathVariable Long votingSessionId) {
-        Optional<VotingSession> sessionOpt = votingSessionService.findByIdAndAgendaId(votingSessionId, id);
+                                                                         @PathVariable Long sessionId) {
+        Optional<VotingSession> sessionOpt = votingSessionService.findByIdAndAgendaId(sessionId, id);
 
         return sessionOpt
                 .map(session -> ResponseEntity.ok(new VotingSessionResponseDTO(session)))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PatchMapping("{id}/voting-session/{votingSessionId}/close")
+    @PatchMapping("{id}/voting-session/{sessionId}/close")
     public ResponseEntity<VotingSessionResponseDTO> closeVotingSession(
             @PathVariable Long id,
-            @PathVariable Long votingSessionId) {
+            @PathVariable Long sessionId) {
 
-        VotingSession session = votingSessionService.close(votingSessionId);
+        VotingSession session = votingSessionService.close(sessionId);
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new VotingSessionResponseDTO(session));
