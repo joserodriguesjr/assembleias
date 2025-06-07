@@ -12,6 +12,7 @@ public class VotingSession {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "voting_session_id")
     private Long id;
 
     @ManyToOne

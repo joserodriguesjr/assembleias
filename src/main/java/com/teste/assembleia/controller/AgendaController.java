@@ -2,12 +2,14 @@ package com.teste.assembleia.controller;
 
 
 import com.teste.assembleia.dto.CreateVotingSessionDTO;
+import com.teste.assembleia.dto.CreateVoteRequest;
 import com.teste.assembleia.dto.VotingSessionResponseDTO;
 import com.teste.assembleia.model.Agenda;
+import com.teste.assembleia.model.Vote;
 import com.teste.assembleia.model.VotingSession;
 import com.teste.assembleia.service.AgendaService;
+import com.teste.assembleia.service.VoteService;
 import com.teste.assembleia.service.VotingSessionService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +29,7 @@ public class AgendaController {
 
     private final AgendaService agendaService;
     private final VotingSessionService votingSessionService;
+    private final VoteService voteService;
 
     @PostMapping
     public ResponseEntity<Agenda> createAgenda(@RequestBody Agenda agenda) {
@@ -67,12 +70,9 @@ public class AgendaController {
 
     @GetMapping("{id}/voting-session")
     public ResponseEntity<List<VotingSessionResponseDTO>> listVotingSessions(@PathVariable Long id) {
-        List<VotingSession> sessions = votingSessionService.listAllByAgendaId(id);
-        List<VotingSessionResponseDTO> result = sessions.stream()
-                .map(VotingSessionResponseDTO::new)
-                .collect(Collectors.toList());
+        List<VotingSessionResponseDTO> sessions = votingSessionService.listAllByAgendaId(id);
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(sessions);
     }
 
     @GetMapping("{id}/voting-session/{sessionId}")
@@ -96,5 +96,15 @@ public class AgendaController {
                 .body(new VotingSessionResponseDTO(session));
     }
 
+    @PostMapping("{id}/voting-session/{sessionId}/votes")
+    public ResponseEntity<Vote> submitVote(
+            @PathVariable Long id,
+            @PathVariable Long sessionId,
+            @RequestBody CreateVoteRequest createVoteRequest) {
+
+        Vote vote = voteService.newVote(sessionId, createVoteRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(vote);
+    }
 
 }

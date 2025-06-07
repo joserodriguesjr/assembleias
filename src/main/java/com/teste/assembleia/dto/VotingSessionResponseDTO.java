@@ -11,17 +11,23 @@ public class VotingSessionResponseDTO {
 
     private Long id;
     private Long agendaId;
-    //    private String status;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
+    private Long yesVotes;
+    private Long noVotes;
 
     public VotingSessionResponseDTO(VotingSession session) {
         this.id = session.getId();
         this.agendaId = session.getAgenda().getId();
-//        boolean isOpen = session.getIsOpen();
-//        this.status = isOpen ? "OPEN" : "CLOSED"; // ex: "OPEN", "CLOSED"
         this.startTime = session.getStartTime();
         this.endTime = session.getEndTime();
+    }
+
+    public VotingSessionResponseDTO(VotingSession session, long yesVotes, long noVotes) {
+        this(session);
+        this.yesVotes = yesVotes;
+        this.noVotes = noVotes;
     }
 
 //    tempo restante até o fim

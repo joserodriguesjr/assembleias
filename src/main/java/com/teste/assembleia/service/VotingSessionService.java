@@ -1,11 +1,14 @@
 package com.teste.assembleia.service;
 
 import com.teste.assembleia.dto.CreateVotingSessionDTO;
+import com.teste.assembleia.dto.VotingSessionResponseDTO;
 import com.teste.assembleia.exception.BusinessException;
 import com.teste.assembleia.exception.NotFoundException;
 import com.teste.assembleia.model.Agenda;
+import com.teste.assembleia.model.VoteChoice;
 import com.teste.assembleia.model.VotingSession;
 import com.teste.assembleia.repository.AgendaRepository;
+import com.teste.assembleia.repository.VoteRepository;
 import com.teste.assembleia.repository.VotingSessionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -22,6 +26,7 @@ public class VotingSessionService {
 
     private final AgendaRepository agendaRepository;
     private final VotingSessionRepository votingSessionRepository;
+    private final VoteRepository voteRepository;
 
     public VotingSession create(Long agendaId, CreateVotingSessionDTO dto) {
         Agenda agenda = agendaRepository.findById(agendaId)
@@ -52,8 +57,16 @@ public class VotingSessionService {
         return votingSessionRepository.findByIdAndAgendaId(id, agendaId);
     }
 
-    public List<VotingSession> listAllByAgendaId(Long agendaId) {
-        return votingSessionRepository.findByAgendaId(agendaId);
+    public List<VotingSessionResponseDTO> listAllByAgendaId(Long agendaId) {
+        List<VotingSession> sessions = votingSessionRepository.findByAgendaId(agendaId);
+
+        return sessions.stream()
+                .map(session -> {
+                    long yesVotes = voteRepository.countByVotingSessionIdAndChoice(session.getId(), VoteChoice.SIM);
+                    long noVotes = voteRepository.countByVotingSessionIdAndChoice(session.getId(), VoteChoice.NAO);
+                    return new VotingSessionResponseDTO(session, yesVotes, noVotes);
+                })
+                .collect(Collectors.toList());
     }
 
     public VotingSession close(Long id) {

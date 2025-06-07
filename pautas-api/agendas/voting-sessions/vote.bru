@@ -1,0 +1,18 @@
+meta {
+  name: vote
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base_url}}/{{resource}}/1/{{subResource}}/1/votes
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "associateId": "aaabaaaaaaaac",
+    "choice" : "NAO"
+  }
+}
