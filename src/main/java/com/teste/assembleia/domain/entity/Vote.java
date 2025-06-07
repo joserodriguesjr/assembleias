@@ -1,5 +1,6 @@
-package com.teste.assembleia.model;
+package com.teste.assembleia.domain.entity;
 
+import com.teste.assembleia.domain.valueObject.VoteChoice;
 import jakarta.persistence.*;
 import lombok.Data;
 

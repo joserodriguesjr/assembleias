@@ -1,4 +1,4 @@
-package com.teste.assembleia.exception;
+package com.teste.assembleia.domain.exception;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {

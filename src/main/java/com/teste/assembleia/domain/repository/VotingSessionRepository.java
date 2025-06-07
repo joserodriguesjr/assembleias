@@ -1,6 +1,6 @@
-package com.teste.assembleia.repository;
+package com.teste.assembleia.domain.repository;
 
-import com.teste.assembleia.model.VotingSession;
+import com.teste.assembleia.domain.entity.VotingSession;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

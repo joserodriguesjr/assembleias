@@ -1,8 +1,8 @@
-package com.teste.assembleia.controller;
+package com.teste.assembleia.infrastructure.controller;
 
 
-import com.teste.assembleia.model.Agenda;
-import com.teste.assembleia.service.AgendaService;
+import com.teste.assembleia.domain.entity.Agenda;
+import com.teste.assembleia.application.service.AgendaService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

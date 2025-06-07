@@ -1,12 +1,12 @@
-package com.teste.assembleia.controller;
+package com.teste.assembleia.infrastructure.controller;
 
-import com.teste.assembleia.dto.CreateVoteRequest;
-import com.teste.assembleia.dto.CreateVotingSessionDTO;
-import com.teste.assembleia.dto.VotingSessionResponseDTO;
-import com.teste.assembleia.model.Vote;
-import com.teste.assembleia.model.VotingSession;
-import com.teste.assembleia.service.VoteService;
-import com.teste.assembleia.service.VotingSessionService;
+import com.teste.assembleia.application.dto.CreateVoteRequest;
+import com.teste.assembleia.application.dto.CreateVotingSessionDTO;
+import com.teste.assembleia.application.dto.VotingSessionResponseDTO;
+import com.teste.assembleia.domain.entity.Vote;
+import com.teste.assembleia.domain.entity.VotingSession;
+import com.teste.assembleia.application.service.VoteService;
+import com.teste.assembleia.application.service.VotingSessionService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

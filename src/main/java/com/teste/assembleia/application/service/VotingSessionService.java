@@ -1,15 +1,15 @@
-package com.teste.assembleia.service;
+package com.teste.assembleia.application.service;
 
-import com.teste.assembleia.dto.CreateVotingSessionDTO;
-import com.teste.assembleia.dto.VotingSessionResponseDTO;
-import com.teste.assembleia.exception.BusinessException;
-import com.teste.assembleia.exception.NotFoundException;
-import com.teste.assembleia.model.Agenda;
-import com.teste.assembleia.model.VoteChoice;
-import com.teste.assembleia.model.VotingSession;
-import com.teste.assembleia.repository.AgendaRepository;
-import com.teste.assembleia.repository.VoteRepository;
-import com.teste.assembleia.repository.VotingSessionRepository;
+import com.teste.assembleia.application.dto.CreateVotingSessionDTO;
+import com.teste.assembleia.application.dto.VotingSessionResponseDTO;
+import com.teste.assembleia.domain.exception.BusinessException;
+import com.teste.assembleia.domain.exception.NotFoundException;
+import com.teste.assembleia.domain.entity.Agenda;
+import com.teste.assembleia.domain.valueObject.VoteChoice;
+import com.teste.assembleia.domain.entity.VotingSession;
+import com.teste.assembleia.domain.repository.AgendaRepository;
+import com.teste.assembleia.domain.repository.VoteRepository;
+import com.teste.assembleia.domain.repository.VotingSessionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.teste.assembleia.model;
+package com.teste.assembleia.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

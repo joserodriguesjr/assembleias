@@ -1,7 +1,7 @@
-package com.teste.assembleia.repository;
+package com.teste.assembleia.domain.repository;
 
-import com.teste.assembleia.model.Vote;
-import com.teste.assembleia.model.VoteChoice;
+import com.teste.assembleia.domain.entity.Vote;
+import com.teste.assembleia.domain.valueObject.VoteChoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

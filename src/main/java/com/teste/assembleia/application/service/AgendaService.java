@@ -1,7 +1,7 @@
-package com.teste.assembleia.service;
+package com.teste.assembleia.application.service;
 
-import com.teste.assembleia.model.Agenda;
-import com.teste.assembleia.repository.AgendaRepository;
+import com.teste.assembleia.domain.entity.Agenda;
+import com.teste.assembleia.domain.repository.AgendaRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.teste.assembleia.dto;
+package com.teste.assembleia.application.dto;
 
 import lombok.Getter;
 

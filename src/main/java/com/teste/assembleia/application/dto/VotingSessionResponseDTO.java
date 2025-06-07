@@ -1,6 +1,6 @@
-package com.teste.assembleia.dto;
+package com.teste.assembleia.application.dto;
 
-import com.teste.assembleia.model.VotingSession;
+import com.teste.assembleia.domain.entity.VotingSession;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
