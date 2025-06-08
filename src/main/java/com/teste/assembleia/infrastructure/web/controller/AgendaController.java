@@ -1,6 +1,7 @@
 package com.teste.assembleia.infrastructure.web.controller;
 
 
+import com.teste.assembleia.application.dto.AgendaDetailsDTO;
 import com.teste.assembleia.application.service.AgendaService;
 import com.teste.assembleia.domain.entity.Agenda;
 import lombok.AllArgsConstructor;
@@ -22,9 +23,8 @@ public class AgendaController {
 
     @GetMapping("/{agendaId}")
     @ResponseStatus(HttpStatus.OK)
-    public Agenda getAgendaById(@PathVariable Long agendaId) {
-        return agendaService.findById(agendaId);
+    public AgendaDetailsDTO getAgendaById(@PathVariable Long agendaId) {
+        return agendaService.getAgendaWithSessionDetails(agendaId);
     }
-
 
 }
