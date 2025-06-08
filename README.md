@@ -114,7 +114,7 @@ Retorna os detalhes de uma pauta específica, incluindo informações sobre sua 
           "title": "Devemos definir novo orçamento para 2026?",
           "session": {
             "sessionId": 1,
-            "agenda" : {...},
+            "agenda" : { },
             "startTime": "2025-06-08T20:10:00.000000",
             "endTime": "2025-06-08T20:11:00.000000",
             "yesVotes": 0,
@@ -167,7 +167,7 @@ Abre uma sessão de votação para uma pauta. A duração padrão é de 1 minuto
 
         ```json
         {
-          "endTime": "2025-06-09T10:00:00"   // Opcional
+          "endTime": "2025-06-09T10:00:00"
         }
         ```
 
