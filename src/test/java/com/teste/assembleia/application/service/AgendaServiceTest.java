@@ -43,7 +43,7 @@ class AgendaServiceTest {
         when(agendaRepository.save(any(Agenda.class))).thenReturn(newAgenda);
 
         // Act
-        Agenda savedAgenda = agendaService.create(newAgenda);
+        Agenda savedAgenda = agendaService.create(newAgenda.getName());
 
         // Assert
         assertNotNull(savedAgenda);
