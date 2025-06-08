@@ -14,5 +14,4 @@ public class CreateVoteRequest {
     @NotNull
     private VoteChoice choice;
 
-    // Getters e Setters
 }
