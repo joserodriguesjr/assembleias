@@ -19,6 +19,8 @@ Este projeto segue os princípios da **Clean Architecture**, dividindo o código
 * **Build Tool:** Gradle
 * **Banco de Dados:** PostgreSQL
 * **Persistência:** Spring Data JPA / Hibernate
+* **Testes:** JUnit 5, Mockito
+* **Logging:** SLF4J
 
 ## Pré-requisitos
 
@@ -29,49 +31,16 @@ Este projeto segue os princípios da **Clean Architecture**, dividindo o código
 
 1. **Clone o repositório:**
    ```bash
-   git clone [https://github.com/joserodriguesjr/assembleias.git](https://github.com/joserodriguesjr/assembleias.git)
+   git clone https://github.com/joserodriguesjr/assembleias.git
    cd assembleias
    ```
 
-2. **Dê permissão de execução ao Gradle Wrapper** (necessário apenas na primeira vez em ambientes Linux/macOS):
+2. **Inicie a aplicação com Docker Compose:**
 
    ```bash
-   chmod +x ./gradlew
+   docker-compose up
    ```
 
-3. **Inicie o banco de dados com Docker Compose:**
-
-   ```bash
-   docker-compose up -d
-   ```
-
-4. **Execute a aplicação com o Gradle Wrapper:**
-
-    * **Linux/macOS:**
-      ```bash
-      ./gradlew bootRun
-      ```
-    * **Windows:**
-      ```bash
-      gradlew.bat bootRun
-      ```
-
-A aplicação estará disponível em `http://localhost:8080`.
-
-## Como Construir o Projeto (Gerar o .jar)
-
-Para gerar o arquivo `.jar` executável da aplicação, use o comando `build`:
-
-* **Linux/macOS:**
-  ```bash
-  ./gradlew build
-  ```
-* **Windows:**
-  ```bash
-  gradlew.bat build
-  ```
-
-O arquivo `.jar` final será criado em `build/libs/`.
-
+A aplicação estará disponível em `http://localhost:8080/api`.
 
 ---
