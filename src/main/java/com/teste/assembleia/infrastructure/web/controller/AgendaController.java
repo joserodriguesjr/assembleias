@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/agendas")
+@RequestMapping("/v1/agendas")
 @AllArgsConstructor
 public class AgendaController {
 

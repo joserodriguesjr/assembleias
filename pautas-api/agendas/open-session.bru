@@ -5,14 +5,13 @@ meta {
 }
 
 post {
-  url: {{base_url}}/{{resource}}/1/session
+  url: {{base_url}}/{{version}}/{{resource}}/1/session
   body: json
   auth: inherit
 }
 
 body:json {
-  // {
-  //   "startTime": "2025-06-0610:00:00",
-  //   "endTime": "2025-06-06T10:30:00"
-  // }
+  {
+    "endTime": "2025-06-06T10:30:00"
+  }
 }
