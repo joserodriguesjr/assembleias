@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 
 @Getter
-public class CreateVotingSessionDTO {
+public class CreateVotingSession {
 
     private LocalDateTime startTime;
 

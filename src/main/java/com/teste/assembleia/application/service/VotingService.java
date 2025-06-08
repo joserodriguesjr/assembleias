@@ -1,7 +1,7 @@
 package com.teste.assembleia.application.service;
 
 import com.teste.assembleia.application.dto.CreateVoteRequest;
-import com.teste.assembleia.application.dto.CreateVotingSessionDTO;
+import com.teste.assembleia.application.dto.CreateVotingSession;
 import com.teste.assembleia.domain.entity.Agenda;
 import com.teste.assembleia.domain.entity.Vote;
 import com.teste.assembleia.domain.entity.VotingSession;
@@ -26,7 +26,7 @@ public class VotingService {
 
     private final AgendaService agendaService;
 
-    public VotingSession openSession(Long agendaId, CreateVotingSessionDTO dto) {
+    public VotingSession openSession(Long agendaId, CreateVotingSession createVotingSession) {
         Optional<VotingSession> sessionOpt = votingSessionRepository.findByAgendaId(agendaId);
         if (sessionOpt.isPresent()) {
             throw new VotingSessionAlreadyExistsException("Já existe uma sessão de votação para essa pauta.");
@@ -42,11 +42,11 @@ public class VotingService {
         LocalDateTime startTime = now;
         LocalDateTime endTime;
 
-        if (dto == null) {
+        if (createVotingSession == null) {
             endTime = now.plusMinutes(1);
         } else {
-            startTime = dto.getStartTime() != null ? dto.getStartTime() : now;
-            endTime = dto.getEndTime() != null ? dto.getEndTime() : startTime.plusMinutes(1);
+            startTime = createVotingSession.getStartTime() != null ? createVotingSession.getStartTime() : now;
+            endTime = createVotingSession.getEndTime() != null ? createVotingSession.getEndTime() : startTime.plusMinutes(1);
         }
 
         validateSessionTimes(now, startTime, endTime);

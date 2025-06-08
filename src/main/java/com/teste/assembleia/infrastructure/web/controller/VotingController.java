@@ -1,7 +1,7 @@
 package com.teste.assembleia.infrastructure.web.controller;
 
 import com.teste.assembleia.application.dto.CreateVoteRequest;
-import com.teste.assembleia.application.dto.CreateVotingSessionDTO;
+import com.teste.assembleia.application.dto.CreateVotingSession;
 import com.teste.assembleia.application.service.VotingService;
 import com.teste.assembleia.domain.entity.Vote;
 import com.teste.assembleia.domain.entity.VotingSession;
@@ -20,8 +20,8 @@ public class VotingController {
     @ResponseStatus(HttpStatus.CREATED)
     public VotingSession openSession(
             @PathVariable Long agendaId,
-            @RequestBody(required = false) CreateVotingSessionDTO dto) {
-        return votingService.openSession(agendaId, dto);
+            @RequestBody(required = false) CreateVotingSession createVotingSession) {
+        return votingService.openSession(agendaId, createVotingSession);
     }
 
     @PostMapping("/votes")

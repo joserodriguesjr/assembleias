@@ -8,9 +8,15 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"voting_session_id", "associate_id"})
-})
+@Table(
+//        todo: check perfomance
+//        indexes = {
+//                @Index(name = "idx_vote_session_choice", columnList = "voting_session_id, choice")
+//        },
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_vote_session_associate", columnNames = {"voting_session_id", "associate_id"})
+        }
+)
 public class Vote {
 
     @Id
