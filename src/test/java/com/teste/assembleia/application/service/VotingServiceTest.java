@@ -4,6 +4,7 @@ import com.teste.assembleia.application.dto.CreateVoteRequest;
 import com.teste.assembleia.domain.entity.Agenda;
 import com.teste.assembleia.domain.entity.Vote;
 import com.teste.assembleia.domain.entity.VotingSession;
+import com.teste.assembleia.domain.exception.AssociateAlreadyVotedException;
 import com.teste.assembleia.domain.exception.VotingSessionAlreadyExistsException;
 import com.teste.assembleia.domain.exception.VotingSessionStillRunningException;
 import com.teste.assembleia.domain.repository.VoteRepository;
@@ -87,6 +88,7 @@ class VotingServiceTest {
         voteRequest.setChoice(VoteChoice.SIM);
 
         when(votingSessionRepository.findByAgendaId(agendaId)).thenReturn(Optional.of(mockSession));
+        when(voteRepository.findByVotingSessionIdAndAssociateId(mockSession.getId(),voteRequest.getAssociateId())).thenReturn(Optional.empty());
         when(mockSession.receiveVote(voteRequest.getAssociateId(), voteRequest.getChoice())).thenReturn(mockVote);
         when(voteRepository.save(mockVote)).thenReturn(mockVote);
 
@@ -96,6 +98,26 @@ class VotingServiceTest {
         // Assert
         assertNotNull(submittedVote);
         verify(voteRepository).save(mockVote);
+    }
+
+    @Test
+    @DisplayName("Deve jogar AssociateAlreadyVotedException quando associado já votou")
+    void submitVote_shouldThrowException_whenHasVoted() {
+        // Arrange
+        Long agendaId = 1L;
+        VotingSession mockSession = mock(VotingSession.class);
+        Vote mockVote = new Vote();
+        CreateVoteRequest voteRequest = new CreateVoteRequest();
+        voteRequest.setAssociateId("associate-123");
+        voteRequest.setChoice(VoteChoice.SIM);
+
+        when(votingSessionRepository.findByAgendaId(agendaId)).thenReturn(Optional.of(mockSession));
+        when(voteRepository.findByVotingSessionIdAndAssociateId(mockSession.getId(),voteRequest.getAssociateId())).thenReturn(Optional.of(new Vote()));
+
+        // Act & Assert
+        assertThrows(AssociateAlreadyVotedException.class, () -> {
+            votingService.submitVote(agendaId, voteRequest);
+        });
     }
 
     @Test

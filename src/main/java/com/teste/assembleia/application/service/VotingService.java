@@ -5,6 +5,7 @@ import com.teste.assembleia.application.dto.CreateVotingSession;
 import com.teste.assembleia.domain.entity.Agenda;
 import com.teste.assembleia.domain.entity.Vote;
 import com.teste.assembleia.domain.entity.VotingSession;
+import com.teste.assembleia.domain.exception.AssociateAlreadyVotedException;
 import com.teste.assembleia.domain.exception.ResourceNotFoundException;
 import com.teste.assembleia.domain.exception.VotingSessionAlreadyExistsException;
 import com.teste.assembleia.domain.exception.VotingSessionStillRunningException;
@@ -50,7 +51,10 @@ public class VotingService {
     public Vote submitVote(Long agendaId, CreateVoteRequest createVoteRequest) {
         VotingSession session = findByAgendaId(agendaId);
 
-        // todo: has user voted Exception?
+        if (voteRepository.findByVotingSessionIdAndAssociateId(session.getId(), createVoteRequest.getAssociateId()).isPresent()) {
+            throw new AssociateAlreadyVotedException(createVoteRequest.getAssociateId());
+        }
+
         Vote vote = session.receiveVote(createVoteRequest.getAssociateId(), createVoteRequest.getChoice());
 
         return voteRepository.save(vote);

@@ -1,5 +1,6 @@
 package com.teste.assembleia.infrastructure.web.exception;
 
+import com.teste.assembleia.domain.exception.AssociateAlreadyVotedException;
 import com.teste.assembleia.domain.exception.VotingSessionAlreadyExistsException;
 import com.teste.assembleia.domain.exception.VotingSessionEndedException;
 import com.teste.assembleia.domain.exception.VotingSessionStillRunningException;
@@ -49,6 +50,16 @@ public class VotingExceptionHandler {
         problemDetail.setDetail("A votação ainda não foi encerrada. Tente novamente mais tarde.");
         problemDetail.setProperty("tempoRestante", formattedTime);
         problemDetail.setProperty("horarioEncerramento", ex.getEndTime());
+        problemDetail.setProperty("timestamp", Instant.now());
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(AssociateAlreadyVotedException.class)
+    public ProblemDetail handleAssociateAlreadyVoted(AssociateAlreadyVotedException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle("Voto Duplicado");
+        problemDetail.setDetail("O associado (" + ex.getMessage() + ") já votou nesta pauta.");
         problemDetail.setProperty("timestamp", Instant.now());
 
         return problemDetail;
