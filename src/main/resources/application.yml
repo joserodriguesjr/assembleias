@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /api
+#  port: ${PORT}
+
+spring:
+  application:
+    name: assembleia
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  datasource:
+    driver-class-name: org.postgresql.Driver
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

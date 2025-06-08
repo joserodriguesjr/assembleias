@@ -21,6 +21,7 @@ Este projeto segue os princípios da **Clean Architecture**, dividindo o código
 * **Persistência:** Spring Data JPA / Hibernate
 * **Testes:** JUnit 5, Mockito
 * **Logging:** SLF4J
+* **Documentação da API:** Springdoc (OpenAPI 3)
 
 ## Pré-requisitos
 
@@ -42,5 +43,11 @@ Este projeto segue os princípios da **Clean Architecture**, dividindo o código
    ```
 
 A aplicação estará disponível em `http://localhost:8080/api`.
+
+## Documentação da API (Swagger UI)
+
+Após iniciar a aplicação, a documentação interativa da API estará disponível no seguinte endereço:
+
+[http://localhost:8080/swagger-ui.html](https://www.google.com/search?q=http://localhost:8080/swagger-ui.html)
 
 ---

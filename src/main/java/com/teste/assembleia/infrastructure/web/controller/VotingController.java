@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/agendas/{agendaId}")
+@RequestMapping("/v1/agendas/{agendaId}")
 @AllArgsConstructor
 public class VotingController {
 
