@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Testes de Unidade da Entidade Agenda")
+@DisplayName("Unit Test - Entity - Agenda")
 class AgendaTest {
 
     private Agenda agenda;
@@ -23,7 +23,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("Deve abrir uma sessão de votação com duração padrão de 1 minuto")
-    void deveAbrirSessaoComDuracaoPadraoDe1Minuto() {
+    void shouldOpenSessionWithStandardDurationOf1Minute() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
 
@@ -39,7 +39,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("Deve abrir uma sessão de votação com duração customizada válida")
-    void deveAbrirSessaoComDuracaoCustomizada() {
+    void shouldOpenSessionWithCustomDuration() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusMinutes(30);
@@ -54,7 +54,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("NÃO deve abrir sessão com duração menor que 1 minuto")
-    void naoDeveAbrirSessaoComDuracaoMenorQue1Minuto() {
+    void shouldNotOpenSessionWithDurationLessThan1Minute() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusSeconds(59);
@@ -70,7 +70,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("NÃO deve abrir sessão com data de início no passado")
-    void naoDeveAbrirSessaoComDataDeInicioNoPassado() {
+    void shouldNotOpenSessionWithPastStartTime() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now().minusMinutes(5);
 
@@ -84,7 +84,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("NÃO deve abrir sessão com data de fim anterior à data de início")
-    void naoDeveAbrirSessaoComDataDeFimAnteriorAoInicio() {
+    void shouldNotOpenSessionWithEndTimeBeforeStartTime() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.minusMinutes(10);

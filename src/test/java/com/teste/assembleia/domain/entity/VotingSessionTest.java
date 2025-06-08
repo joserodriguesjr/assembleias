@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Testes de Unidade da Entidade VotingSession")
+@DisplayName("Unit Test - Entity - VotingSession")
 class VotingSessionTest {
 
     private VotingSession openSession;
@@ -33,7 +33,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("Deve inicializar com valores padrão corretos ao ser criada")
-    void deveInicializarCorretamenteAoSerCriada() {
+    void shouldInitializeCorrectlyWhenCreated() {
         // Arrange
         VotingSession newSession = new VotingSession();
 
@@ -47,7 +47,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("Deve receber um voto com sucesso quando a sessão estiver aberta")
-    void deveReceberVotoComSucessoQuandoSessaoEstiverAberta() {
+    void shouldReceiveVoteWhenSessionIsOpen() {
         // Arrange
         String associateId = "associate-123";
         VoteChoice choice = VoteChoice.SIM;
@@ -65,7 +65,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("NÃO deve receber um voto quando a sessão já estiver encerrada")
-    void naoDeveReceberVotoQuandoSessaoEstiverEncerrada() {
+    void shouldNotReceiveVoteWhenSessionIsClosed() {
         // Arrange
         String associateId = "associate-456";
         VoteChoice choice = VoteChoice.NAO;
@@ -80,7 +80,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("Deve processar e atualizar os resultados da votação corretamente")
-    void deveProcessarResultadosCorretamente() {
+    void shouldProcessResults() {
         // Arrange
         Long yesCount = 150L;
         Long noCount = 75L;
