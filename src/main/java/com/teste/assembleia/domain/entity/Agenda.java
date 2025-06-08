@@ -65,7 +65,7 @@ public class Agenda {
 
         Duration duration = Duration.between(startTime, endTime);
         if (duration.toMinutes() < 1) {
-            throw new BusinessException("A sessão deve durar no mínimo 1 minuto.");
+            throw new BusinessException("A sessão de votação deve durar no mínimo 1 minuto.");
         }
     }
 }
