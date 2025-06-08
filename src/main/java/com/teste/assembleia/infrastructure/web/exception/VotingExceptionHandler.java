@@ -1,5 +1,7 @@
 package com.teste.assembleia.infrastructure.web.exception;
 
+import com.teste.assembleia.domain.exception.VotingSessionAlreadyExistsException;
+import com.teste.assembleia.domain.exception.VotingSessionEndedException;
 import com.teste.assembleia.domain.exception.VotingSessionStillRunningException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
@@ -13,10 +15,30 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 
 
-@RestControllerAdvice(basePackages = "com.assembleia.")
+@RestControllerAdvice
 @Order(0)
 @Slf4j
 public class VotingExceptionHandler {
+
+    @ExceptionHandler(VotingSessionAlreadyExistsException.class)
+    public ProblemDetail handleSessionAlreadyExists(VotingSessionAlreadyExistsException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle("Sessão de Votação Existente");
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setProperty("timestamp", Instant.now());
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(VotingSessionEndedException.class)
+    public ProblemDetail handleSessionEnded(VotingSessionEndedException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle("Sessão de Votação Encerrada");
+        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setProperty("timestamp", Instant.now());
+
+        return problemDetail;
+    }
 
     @ExceptionHandler(VotingSessionStillRunningException.class)
     public ProblemDetail handleSessionStillRunning(VotingSessionStillRunningException ex) {
