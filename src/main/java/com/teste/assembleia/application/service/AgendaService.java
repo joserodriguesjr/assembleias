@@ -18,7 +18,9 @@ public class AgendaService {
     private final AgendaRepository agendaRepository;
     private final VotingSessionRepository votingSessionRepository;
 
-    public Agenda create(Agenda agenda) {
+    public Agenda create(String name) {
+        Agenda agenda = new Agenda();
+        agenda.setName(name);
         return agendaRepository.save(agenda);
     }
 
