@@ -1,11 +1,10 @@
 package com.teste.assembleia.application.dto;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
-@Getter
+@Data
 public class CreateVotingSession {
 
     private LocalDateTime startTime;

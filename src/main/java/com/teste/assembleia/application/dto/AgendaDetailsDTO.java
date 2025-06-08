@@ -2,11 +2,9 @@ package com.teste.assembleia.application.dto;
 
 import com.teste.assembleia.domain.entity.Agenda;
 import com.teste.assembleia.domain.entity.VotingSession;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class AgendaDetailsDTO {
 
     private Long agendaId;
