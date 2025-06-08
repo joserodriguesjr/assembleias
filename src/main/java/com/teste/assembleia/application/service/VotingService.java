@@ -47,7 +47,7 @@ public class VotingService {
         return votingSessionRepository.save(session);
     }
 
-    public Vote submiteVote(Long agendaId, CreateVoteRequest createVoteRequest) {
+    public Vote submitVote(Long agendaId, CreateVoteRequest createVoteRequest) {
         VotingSession session = findByAgendaId(agendaId);
 
         // todo: has user voted Exception?

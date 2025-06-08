@@ -29,7 +29,7 @@ public class VotingController {
     public Vote submitVote(
             @PathVariable Long agendaId,
             @RequestBody CreateVoteRequest createVoteRequest) {
-        return votingService.submiteVote(agendaId, createVoteRequest);
+        return votingService.submitVote(agendaId, createVoteRequest);
     }
 
     @GetMapping("/results")
