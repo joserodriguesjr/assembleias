@@ -23,7 +23,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("Deve abrir uma sessão de votação com duração padrão de 1 minuto")
-    void shouldOpenSessionWithStandardDurationOf1Minute() {
+    void openVotingSession_shouldOpenSessionWithStandardDurationOf1Minute() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
 
@@ -39,7 +39,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("Deve abrir uma sessão de votação com duração customizada válida")
-    void shouldOpenSessionWithCustomDuration() {
+    void openVotingSession_shouldOpenSessionWithCustomDuration() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusMinutes(30);
@@ -54,7 +54,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("NÃO deve abrir sessão com duração menor que 1 minuto")
-    void shouldNotOpenSessionWithDurationLessThan1Minute() {
+    void openVotingSession_shouldNotOpenSessionWithDurationLessThan1Minute() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.plusSeconds(59);
@@ -70,7 +70,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("NÃO deve abrir sessão com data de início no passado")
-    void shouldNotOpenSessionWithPastStartTime() {
+    void openVotingSession_shouldNotOpenSessionWithPastStartTime() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now().minusMinutes(5);
 
@@ -84,7 +84,7 @@ class AgendaTest {
 
     @Test
     @DisplayName("NÃO deve abrir sessão com data de fim anterior à data de início")
-    void shouldNotOpenSessionWithEndTimeBeforeStartTime() {
+    void openVotingSession_shouldNotOpenSessionWithEndTimeBeforeStartTime() {
         // Arrange
         LocalDateTime startTime = LocalDateTime.now();
         LocalDateTime endTime = startTime.minusMinutes(10);

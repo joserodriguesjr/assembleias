@@ -33,7 +33,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("Deve inicializar com valores padrão corretos ao ser criada")
-    void shouldInitializeCorrectlyWhenCreated() {
+    void constructor_shouldInitializeCorrectlyWhenCreated() {
         // Arrange
         VotingSession newSession = new VotingSession();
 
@@ -47,7 +47,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("Deve receber um voto com sucesso quando a sessão estiver aberta")
-    void shouldReceiveVoteWhenSessionIsOpen() {
+    void receiveVote_shouldReceiveVoteWhenSessionIsOpen() {
         // Arrange
         String associateId = "associate-123";
         VoteChoice choice = VoteChoice.SIM;
@@ -65,7 +65,7 @@ class VotingSessionTest {
 
     @Test
     @DisplayName("NÃO deve receber um voto quando a sessão já estiver encerrada")
-    void shouldNotReceiveVoteWhenSessionIsClosed() {
+    void receiveVote_shouldNotReceiveVoteWhenSessionIsClosed() {
         // Arrange
         String associateId = "associate-456";
         VoteChoice choice = VoteChoice.NAO;
@@ -79,8 +79,8 @@ class VotingSessionTest {
     }
 
     @Test
-    @DisplayName("Deve processar e atualizar os resultados da votação corretamente")
-    void shouldProcessResults() {
+    @DisplayName("Deve atualizar os resultados da votação corretamente")
+    void processResults_shouldProcessResults() {
         // Arrange
         Long yesCount = 150L;
         Long noCount = 75L;
