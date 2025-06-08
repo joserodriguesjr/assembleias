@@ -87,6 +87,10 @@ public class VotingService {
             throw new VotingSessionStillRunningException(session.getEndTime());
         }
 
+        return session;
+    }
+
+    public void processResults(VotingSession session) {
         if (session.getProcessed().equals(false)) {
             Long yesVotes = voteRepository.countByVotingSessionIdAndChoice(session.getId(), VoteChoice.SIM);
             Long noVotes = voteRepository.countByVotingSessionIdAndChoice(session.getId(), VoteChoice.NAO);
@@ -96,8 +100,6 @@ public class VotingService {
             session.setProcessed(true);
             votingSessionRepository.save(session);
         }
-
-        return session;
     }
 
     private VotingSession findByAgendaId(Long agendaId) {
