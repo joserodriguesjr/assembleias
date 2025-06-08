@@ -33,11 +33,8 @@ public class VotingService {
 
         Agenda agenda = agendaService.findById(agendaId);
 
-        // todo: accept endTime and elapsedSeconds, minutes
         VotingSession session;
-        LocalDateTime startTime = (createVotingSession != null && createVotingSession.getStartTime() != null)
-                ? createVotingSession.getStartTime()
-                : LocalDateTime.now();
+        LocalDateTime startTime = LocalDateTime.now();
 
         if (createVotingSession != null && createVotingSession.getEndTime() != null) {
             session = agenda.openVotingSession(startTime, createVotingSession.getEndTime());
