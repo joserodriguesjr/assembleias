@@ -1,6 +1,6 @@
 package com.teste.assembleia.domain.entity;
 
-import com.teste.assembleia.domain.exception.BusinessException;
+import com.teste.assembleia.domain.exception.VotingSessionTimeViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -61,7 +61,7 @@ class AgendaTest {
 
         // Act & Assert
         // Verifica se a exceção correta é lançada E se a mensagem está correta.
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        VotingSessionTimeViolationException exception = assertThrows(VotingSessionTimeViolationException.class, () -> {
             agenda.openVotingSession(startTime, endTime);
         });
 
@@ -75,7 +75,7 @@ class AgendaTest {
         LocalDateTime startTime = LocalDateTime.now().minusMinutes(5);
 
         // Act & Assert
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        VotingSessionTimeViolationException exception = assertThrows(VotingSessionTimeViolationException.class, () -> {
             agenda.openVotingSession(startTime);
         });
 
@@ -90,7 +90,7 @@ class AgendaTest {
         LocalDateTime endTime = startTime.minusMinutes(10);
 
         // Act & Assert
-        BusinessException exception = assertThrows(BusinessException.class, () -> {
+        VotingSessionTimeViolationException exception = assertThrows(VotingSessionTimeViolationException.class, () -> {
             agenda.openVotingSession(startTime, endTime);
         });
 

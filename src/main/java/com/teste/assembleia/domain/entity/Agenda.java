@@ -1,6 +1,6 @@
 package com.teste.assembleia.domain.entity;
 
-import com.teste.assembleia.domain.exception.BusinessException;
+import com.teste.assembleia.domain.exception.VotingSessionTimeViolationException;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -56,16 +56,16 @@ public class Agenda {
         LocalDateTime now = LocalDateTime.now();
         // Adiciona uma pequena tolerância para data de início
         if (startTime.isBefore(now.minusSeconds(30))) {
-            throw new BusinessException("A data de início não pode estar no passado.");
+            throw new VotingSessionTimeViolationException("A data de início não pode estar no passado.");
         }
 
         if (endTime.isBefore(startTime)) {
-            throw new BusinessException("A data de término deve ser posterior à de início.");
+            throw new VotingSessionTimeViolationException("A data de término deve ser posterior à de início.");
         }
 
         Duration duration = Duration.between(startTime, endTime);
         if (duration.toMinutes() < 1) {
-            throw new BusinessException("A sessão de votação deve durar no mínimo 1 minuto.");
+            throw new VotingSessionTimeViolationException("A sessão de votação deve durar no mínimo 1 minuto.");
         }
     }
 }

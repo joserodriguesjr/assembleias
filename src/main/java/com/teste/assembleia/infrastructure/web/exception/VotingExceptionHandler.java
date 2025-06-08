@@ -1,9 +1,6 @@
 package com.teste.assembleia.infrastructure.web.exception;
 
-import com.teste.assembleia.domain.exception.AssociateAlreadyVotedException;
-import com.teste.assembleia.domain.exception.VotingSessionAlreadyExistsException;
-import com.teste.assembleia.domain.exception.VotingSessionEndedException;
-import com.teste.assembleia.domain.exception.VotingSessionStillRunningException;
+import com.teste.assembleia.domain.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -50,6 +47,16 @@ public class VotingExceptionHandler {
         problemDetail.setDetail("A votação ainda não foi encerrada. Tente novamente mais tarde.");
         problemDetail.setProperty("tempoRestante", formattedTime);
         problemDetail.setProperty("horarioEncerramento", ex.getEndTime());
+        problemDetail.setProperty("timestamp", Instant.now());
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(VotingSessionTimeViolationException.class)
+    public ProblemDetail handleVotingSessionTimeViolation(VotingSessionTimeViolationException ex) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
+        problemDetail.setTitle("Sessão de Votação Não Pode Ser Iniciada");
+        problemDetail.setDetail(ex.getMessage());
         problemDetail.setProperty("timestamp", Instant.now());
 
         return problemDetail;
