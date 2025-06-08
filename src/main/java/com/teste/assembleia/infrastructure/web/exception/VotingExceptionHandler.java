@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 @RestControllerAdvice
@@ -22,7 +24,7 @@ public class VotingExceptionHandler {
     public ProblemDetail handleSessionAlreadyExists(VotingSessionAlreadyExistsException ex) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         problemDetail.setTitle("Sessão de Votação Existente");
-        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setDetail("Já existe uma sessão de votação para pauta com ID: " + ex.getAgendaId().toString());
         problemDetail.setProperty("timestamp", Instant.now());
 
         return problemDetail;
@@ -30,9 +32,18 @@ public class VotingExceptionHandler {
 
     @ExceptionHandler(VotingSessionEndedException.class)
     public ProblemDetail handleSessionEnded(VotingSessionEndedException ex) {
+        LocalDateTime endTime = ex.getEndTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
+                "dd/MM/yyyy 'às' HH:mm:ss",
+                Locale.of("pt", "BR")
+        );
+        String formattedEndTime = endTime.format(formatter);
+        String detailMessage = "A votação não pôde ser computada pois a sessão foi encerrada em " + formattedEndTime + ".";
+
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.CONFLICT);
         problemDetail.setTitle("Sessão de Votação Encerrada");
-        problemDetail.setDetail(ex.getMessage());
+        problemDetail.setDetail(detailMessage);
+        problemDetail.setProperty("endedAt", endTime.toString());
         problemDetail.setProperty("timestamp", Instant.now());
 
         return problemDetail;

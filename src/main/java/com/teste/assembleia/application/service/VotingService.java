@@ -28,7 +28,7 @@ public class VotingService {
 
     public VotingSession openSession(Long agendaId, CreateVotingSession createVotingSession) {
         if (votingSessionRepository.findByAgendaId(agendaId).isPresent()) {
-            throw new VotingSessionAlreadyExistsException("Já existe uma sessão de votação para essa pauta.");
+            throw new VotingSessionAlreadyExistsException(agendaId);
         }
 
         Agenda agenda = agendaService.findById(agendaId);

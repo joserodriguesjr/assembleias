@@ -75,7 +75,7 @@ class VotingSessionTest {
             closedSession.receiveVote(associateId, choice);
         });
 
-        assertEquals("A sessão de votação já foi encerrada.", exception.getMessage());
+        assertEquals("Tentativa de ação em sessão já encerrada.", exception.getMessage());
     }
 
     @Test

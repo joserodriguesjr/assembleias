@@ -51,7 +51,7 @@ public class VotingSession {
      */
     public Vote receiveVote(String associateId, VoteChoice choice) {
         if (LocalDateTime.now().isAfter(this.endTime)) {
-            throw new VotingSessionEndedException("A sessão de votação já foi encerrada.");
+            throw new VotingSessionEndedException(this.endTime);
         }
 
         Vote vote = new Vote();
