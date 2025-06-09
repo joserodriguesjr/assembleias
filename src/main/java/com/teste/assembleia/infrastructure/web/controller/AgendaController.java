@@ -1,9 +1,6 @@
 package com.teste.assembleia.infrastructure.web.controller;
 
-import com.teste.assembleia.application.dto.AgendaDetailsDTO;
-import com.teste.assembleia.application.dto.CreateAgenda;
-import com.teste.assembleia.application.dto.CreateVoteRequest;
-import com.teste.assembleia.application.dto.CreateVotingSession;
+import com.teste.assembleia.application.dto.*;
 import com.teste.assembleia.application.service.AgendaService;
 import com.teste.assembleia.application.service.VotingService;
 import com.teste.assembleia.domain.entity.Agenda;
@@ -42,27 +39,30 @@ public class AgendaController {
     @PostMapping("/{agendaId}/session")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Abrir sessão de votação", description = "Abre uma nova sessão de votação para uma pauta pela duração especificada. Padrão é 1 minuto.")
-    public VotingSession openSession(
+    public VotingSessionDTO openSession(
             @PathVariable Long agendaId,
             @RequestBody(required = false) CreateVotingSession createVotingSession) {
-        return votingService.openSession(agendaId, createVotingSession);
+        VotingSession session = votingService.openSession(agendaId, createVotingSession);
+        return new VotingSessionDTO(session);
     }
 
     @PostMapping("/{agendaId}/votes")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @Operation(summary = "Submeter voto", description = "Submete um voto (SIM/NAO) para uma pauta com sessão aberta. Cada associado só pode votar uma vez por " +
             "pauta.")
-    public Vote submitVote(
+    public VoteDTO submitVote(
             @PathVariable Long agendaId,
             @RequestBody CreateVoteRequest createVoteRequest) {
-        return votingService.submitVote(agendaId, createVoteRequest);
+        Vote vote = votingService.submitVote(agendaId, createVoteRequest);
+        return new VoteDTO(vote);
     }
 
     @GetMapping("/{agendaId}/results")
     @ResponseStatus(HttpStatus.ACCEPTED)
     @Operation(summary = "Obter resultados da votação", description = "Obtém os resultados da votação para uma pauta. Só será carregado após o término da sessão.")
-    public VotingSession getResults(@PathVariable Long agendaId) {
-        return votingService.getResults(agendaId);
+    public VotingSessionDTO getResults(@PathVariable Long agendaId) {
+        VotingSession session = votingService.getResults(agendaId);
+        return new VotingSessionDTO(session);
     }
 
 }
