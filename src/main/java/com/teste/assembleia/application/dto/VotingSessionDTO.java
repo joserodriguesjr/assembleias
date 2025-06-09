@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public class VotingSessionDTO {
 
     private Long id;
+    private Long agendaId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private Long yesVotes;
@@ -17,6 +18,7 @@ public class VotingSessionDTO {
 
     public VotingSessionDTO(VotingSession votingSession) {
         this.id = votingSession.getId();
+        this.agendaId = votingSession.getAgenda().getId();
         this.startTime = votingSession.getStartTime();
         this.endTime = votingSession.getEndTime();
         this.yesVotes = votingSession.getYesVotes();

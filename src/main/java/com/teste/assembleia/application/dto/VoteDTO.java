@@ -10,12 +10,14 @@ import java.time.LocalDateTime;
 public class VoteDTO {
 
     private Long id;
+    private Long votingSessionId;
     private String associateId;
     private VoteChoice choice;
     private LocalDateTime timestamp;
 
     public VoteDTO(Vote vote) {
         this.id = vote.getId();
+        this.votingSessionId = vote.getVotingSession().getId();
         this.associateId = vote.getAssociateId();
         this.choice = vote.getChoice();
         this.timestamp = vote.getTimestamp();
