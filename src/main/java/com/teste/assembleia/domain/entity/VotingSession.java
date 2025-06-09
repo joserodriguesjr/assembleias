@@ -17,7 +17,7 @@ public class VotingSession {
     @Column(name = "voting_session_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "agenda_id", nullable = false)
     private Agenda agenda;
 

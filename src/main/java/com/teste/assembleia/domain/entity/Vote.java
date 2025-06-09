@@ -9,10 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(
-//        todo: check perfomance
-//        indexes = {
-//                @Index(name = "idx_vote_session_choice", columnList = "voting_session_id, choice")
-//        },
         uniqueConstraints = {
                 @UniqueConstraint(name = "uk_vote_session_associate", columnNames = {"voting_session_id", "associate_id"})
         }
@@ -24,7 +20,7 @@ public class Vote {
     @Column(name = "vote_id")
     private Long id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "voting_session_id")
     private VotingSession votingSession;
 
