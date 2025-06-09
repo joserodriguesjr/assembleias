@@ -5,14 +5,12 @@ import com.teste.assembleia.application.dto.CreateVotingSession;
 import com.teste.assembleia.domain.entity.Agenda;
 import com.teste.assembleia.domain.entity.Vote;
 import com.teste.assembleia.domain.entity.VotingSession;
-import com.teste.assembleia.domain.exception.AssociateAlreadyVotedException;
-import com.teste.assembleia.domain.exception.ResourceNotFoundException;
-import com.teste.assembleia.domain.exception.VotingSessionAlreadyExistsException;
-import com.teste.assembleia.domain.exception.VotingSessionStillRunningException;
+import com.teste.assembleia.domain.exception.*;
 import com.teste.assembleia.domain.repository.VoteRepository;
 import com.teste.assembleia.domain.repository.VotingSessionRepository;
 import com.teste.assembleia.domain.valueObject.VoteChoice;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +19,7 @@ import java.time.LocalDateTime;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class VotingService {
 
     private final VotingSessionRepository votingSessionRepository;
@@ -29,6 +28,7 @@ public class VotingService {
 
     public VotingSession openSession(Long agendaId, CreateVotingSession createVotingSession) {
         if (votingSessionRepository.findByAgendaId(agendaId).isPresent()) {
+            log.warn("Falha ao abrir sessão para pauta ID: {}. Sessão já existente.", agendaId);
             throw new VotingSessionAlreadyExistsException(agendaId);
         }
 
@@ -54,6 +54,7 @@ public class VotingService {
         try {
             return voteRepository.save(vote);
         } catch (DataIntegrityViolationException e) {
+            log.warn("Falha ao registrar voto para associado ID {}. Associado já votou.", createVoteRequest.getAssociateId());
             throw new AssociateAlreadyVotedException(createVoteRequest.getAssociateId());
         }
     }
@@ -62,6 +63,7 @@ public class VotingService {
         VotingSession session = findByAgendaId(agendaId);
 
         if (LocalDateTime.now().isBefore(session.getEndTime())) {
+            log.warn("Falha ao coletar resultados de sessão com pauta ID: {}. Sessão ainda está aberta.", agendaId);
             throw new VotingSessionStillRunningException(session.getEndTime());
         }
 
@@ -79,6 +81,7 @@ public class VotingService {
         }
 
         if (LocalDateTime.now().isBefore(session.getEndTime())) {
+            log.warn("Falha ao coletar resultados de sessão com pauta ID: {}. Sessão ainda está aberta.", session.getAgenda().getId());
             throw new VotingSessionStillRunningException(session.getEndTime());
         }
 

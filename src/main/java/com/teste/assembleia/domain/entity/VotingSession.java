@@ -4,12 +4,14 @@ import com.teste.assembleia.domain.exception.VotingSessionEndedException;
 import com.teste.assembleia.domain.valueObject.VoteChoice;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
 @Table(name = "voting_session")
+@Slf4j
 public class VotingSession {
 
     @Id
@@ -44,6 +46,7 @@ public class VotingSession {
 
     public Vote receiveVote(String associateId, VoteChoice choice) {
         if (LocalDateTime.now().isAfter(this.endTime)) {
+            log.warn("Falha ao registrar voto para sessão ID {}. Sessão já encerrou.", this.getId());
             throw new VotingSessionEndedException(this.endTime);
         }
 
