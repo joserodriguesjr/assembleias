@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -88,7 +89,6 @@ class VotingServiceTest {
         voteRequest.setChoice(VoteChoice.SIM);
 
         when(votingSessionRepository.findByAgendaId(agendaId)).thenReturn(Optional.of(mockSession));
-        when(voteRepository.findByVotingSessionIdAndAssociateId(mockSession.getId(),voteRequest.getAssociateId())).thenReturn(Optional.empty());
         when(mockSession.receiveVote(voteRequest.getAssociateId(), voteRequest.getChoice())).thenReturn(mockVote);
         when(voteRepository.save(mockVote)).thenReturn(mockVote);
 
@@ -105,19 +105,24 @@ class VotingServiceTest {
     void submitVote_shouldThrowException_whenHasVoted() {
         // Arrange
         Long agendaId = 1L;
-        VotingSession mockSession = mock(VotingSession.class);
-        Vote mockVote = new Vote();
+        String associateId = "cpf-123456";
+
         CreateVoteRequest voteRequest = new CreateVoteRequest();
-        voteRequest.setAssociateId("associate-123");
+        voteRequest.setAssociateId(associateId);
         voteRequest.setChoice(VoteChoice.SIM);
 
-        when(votingSessionRepository.findByAgendaId(agendaId)).thenReturn(Optional.of(mockSession));
-        when(voteRepository.findByVotingSessionIdAndAssociateId(mockSession.getId(),voteRequest.getAssociateId())).thenReturn(Optional.of(new Vote()));
+        VotingSession session = mock(VotingSession.class);
+        Vote vote = new Vote();
+
+        when(votingSessionRepository.findByAgendaId(agendaId)).thenReturn(Optional.of(session));
+        when(session.receiveVote(associateId, voteRequest.getChoice())).thenReturn(vote);
+        when(voteRepository.save(vote)).thenThrow(new DataIntegrityViolationException("Duplicate"));
 
         // Act & Assert
         assertThrows(AssociateAlreadyVotedException.class, () -> {
             votingService.submitVote(agendaId, voteRequest);
         });
+        verify(voteRepository).save(vote);
     }
 
     @Test
