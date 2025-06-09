@@ -22,13 +22,6 @@ public class Agenda {
 
     private static final long DEFAULT_SESSION_DURATION_MINUTES = 1;
 
-    /**
-     * Cria e retorna uma nova sessão de votação válida para esta pauta.
-     *
-     * @param startTime A hora de início da sessão.
-     * @param endTime   A hora de término da sessão.
-     * @return Uma nova instância de VotingSession.
-     */
     public VotingSession openVotingSession(LocalDateTime startTime, LocalDateTime endTime) {
         validateSessionTimes(startTime, endTime);
 
@@ -40,12 +33,6 @@ public class Agenda {
         return session;
     }
 
-    /**
-     * Abre uma sessão de votação com a duração padrão.
-     *
-     * @param startTime A hora de início da sessão.
-     * @return Uma nova instância de VotingSession.
-     */
     public VotingSession openVotingSession(LocalDateTime startTime) {
         LocalDateTime endTime = startTime.plusMinutes(DEFAULT_SESSION_DURATION_MINUTES);
 

@@ -42,13 +42,6 @@ public class VotingSession {
         this.noVotes = 0L;
     }
 
-    /**
-     * Valida e cria um novo voto para esta sessão.
-     *
-     * @param associateId O ID do associado que está votando.
-     * @param choice      A escolha do voto (SIM/NAO).
-     * @return Uma nova instância de Vote.
-     */
     public Vote receiveVote(String associateId, VoteChoice choice) {
         if (LocalDateTime.now().isAfter(this.endTime)) {
             throw new VotingSessionEndedException(this.endTime);
@@ -63,12 +56,6 @@ public class VotingSession {
         return vote;
     }
 
-    /**
-     * Processa o resultado final da votação.
-     *
-     * @param yesCount Total de votos 'SIM'.
-     * @param noCount  Total de votos 'NÃO'.
-     */
     public void processResults(Long yesCount, Long noCount) {
         this.setYesVotes(yesCount);
         this.setNoVotes(noCount);
