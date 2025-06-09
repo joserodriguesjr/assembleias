@@ -2,6 +2,8 @@
 
 API REST para gerenciar votações em pautas para uma assembleia de associados, desenvolvida com Java e Spring Boot.
 
+Você pode acessar ela aqui: https://rocky-refuge-87494-e6b51cec9d78.herokuapp.com/api
+
 ## Funcionalidades
 
 * Cadastro de novas pautas.
@@ -52,7 +54,7 @@ Após iniciar a aplicação, a documentação interativa da API estará disponí
 
 ## Documentação da API (Endpoints)
 
-A URL base para todos os endpoints desta API é `http://localhost:8080`.
+A URL base para todos os endpoints desta API é `http://localhost:8080/api`.
 
 ### Resumo dos Endpoints
 
