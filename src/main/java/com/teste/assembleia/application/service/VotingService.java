@@ -13,6 +13,7 @@ import com.teste.assembleia.domain.repository.VoteRepository;
 import com.teste.assembleia.domain.repository.VotingSessionRepository;
 import com.teste.assembleia.domain.valueObject.VoteChoice;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -48,13 +49,13 @@ public class VotingService {
     public Vote submitVote(Long agendaId, CreateVoteRequest createVoteRequest) {
         VotingSession session = findByAgendaId(agendaId);
 
-        if (voteRepository.findByVotingSessionIdAndAssociateId(session.getId(), createVoteRequest.getAssociateId()).isPresent()) {
-            throw new AssociateAlreadyVotedException(createVoteRequest.getAssociateId());
-        }
-
         Vote vote = session.receiveVote(createVoteRequest.getAssociateId(), createVoteRequest.getChoice());
 
-        return voteRepository.save(vote);
+        try {
+            return voteRepository.save(vote);
+        } catch (DataIntegrityViolationException e) {
+            throw new AssociateAlreadyVotedException(createVoteRequest.getAssociateId());
+        }
     }
 
     public VotingSession getResults(Long agendaId) {
@@ -62,6 +63,11 @@ public class VotingService {
 
         if (LocalDateTime.now().isBefore(session.getEndTime())) {
             throw new VotingSessionStillRunningException(session.getEndTime());
+        }
+
+//      Caso scheduler ainda não executou, processa os votos
+        if (session.getProcessed().equals(false)) {
+            processResults(session);
         }
 
         return session;
