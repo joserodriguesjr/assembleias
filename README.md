@@ -180,7 +180,7 @@ Abre uma sessão de votação para uma pauta. A duração padrão é de 1 minuto
 Registra o voto de um associado (SIM/NAO) em uma sessão de votação que esteja aberta.
 
 * **Endpoint:** `POST /v1/agendas/{agendaId}/votes`
-* **Sucesso Retorna:** `202 Accepted` com o corpo do voto registrado.
+* **Sucesso Retorna:** `202 Accepted`.
 * **Exemplo de `curl`:**
 
     ```bash
@@ -249,9 +249,10 @@ O teste focou no endpoint mais crítico para a performance de escrita: a submiss
 Para garantir a performance sob essa carga, as seguintes decisões arquiteturais e otimizações foram implementadas:
 
 * **Consultas Otimizadas:** Para a validação de cada voto onde precisa-se saber se a sessão existe, foram utilizadas queries JPQL otimizadas.
-* **Lazy Loading:** As relações entre entidades JPA foram configuradas com `FetchType.LAZY` como padrão.
+* **Lazy Loading:** As relações entre VotingSession <-> Agenda e Vote <-> VotingSession foram configuradas com `FetchType.LAZY` como padrão.
 * **Validação de Voto Único na Camada de Dados:** Em vez de realizar uma query `SELECT` antes de cada `INSERT` para validar se o associado já votou, essa responsabilidade foi
   delegada ao banco de dados através de uma UNIQUE constraint. Essa abordagem é significativamente mais performática em cenários de alta concorrência.
+* **Retorno Controller:** Removido corpo de retorno da requisição, somente status 202 para informar que voto foi computado com sucesso.
 
 ### Resultados
 

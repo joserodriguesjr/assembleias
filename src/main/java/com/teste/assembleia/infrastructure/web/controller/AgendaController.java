@@ -63,15 +63,13 @@ public class AgendaController {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @Operation(summary = "Submeter voto", description = "Submete um voto (SIM/NAO) para uma pauta com sessão aberta. Cada associado só pode votar uma vez por " +
             "pauta.")
-    public VoteDTO submitVote(
+    public void submitVote(
             @PathVariable Long agendaId,
             @RequestBody CreateVoteRequest createVoteRequest) {
         log.info("Recebida requisição POST para /v1/agendas/{}/votes", agendaId);
 
         Vote vote = votingService.submitVote(agendaId, createVoteRequest);
         log.info("Voto ID {} registrado com sucesso.", vote.getId());
-
-        return new VoteDTO(vote);
     }
 
     @GetMapping("/{agendaId}/results")
