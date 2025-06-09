@@ -1,4 +1,5 @@
 server:
+  port: ${PORT:8080}
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain
@@ -12,7 +13,6 @@ server:
     threads:
       max: 500
       min-spare: 50
-#  port: ${PORT}
 
 spring:
   application:
